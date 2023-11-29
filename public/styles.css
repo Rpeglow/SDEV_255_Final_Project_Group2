@@ -5,6 +5,7 @@
       padding: 0 20px;
       font-family: 'Noto Serif', serif;
       max-width: 1200px;
+      background-color: aqua;
     }
     p, h1, h2, h3, a, ul{
       margin: 0;
