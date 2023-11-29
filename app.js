@@ -17,9 +17,11 @@ app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
     const blogs = [
-        {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-        {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
-        {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+        // name, description, subject area, and number of credits
+        {name: 'Place holder1', description: 'Lorem ipsum dolor sit amet consectetur', subject: 'Computer Science', credits: '3'},
+        {name: 'Place holder2', description: 'Lorem ipsum dolor sit amet consectetur', subject: 'Computer Science', credits: '3'},
+        {name: 'Place holder3', description: 'Lorem ipsum dolor sit amet consectetur', subject: 'Computer Science', credits: '3'},
+        {name: 'Place holder4', description: 'Lorem ipsum dolor sit amet consectetur', subject: 'Computer Science', credits: '3'},
     ];
     res.render('index',{ title: 'Home', blogs });
 });
