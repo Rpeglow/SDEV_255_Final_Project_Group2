@@ -3,17 +3,22 @@
 <body>
 <%- include('./partials/nav.ejs') %>
     <div class="create-blog content">
-        <form>
-            <!-- name, description, subject area, and number of credits -->
-            <label for="title">Blog title: </label>
-            <input type="text" id="title" required>
-            <label for="snippet">Blog snippet: </label>
-            <input type="text" id="snippet" required>
-            <label for="body">Blog body : </label>
-            <textarea id="body" required></textarea>
-            <button>Submit</button>
-        </form>
+        <form method="get" action="index.ejs">
+            <div class="card">
+
+            <label for="title">Course Title: </label>
+            <input type="text" id="title" name="title" required>
+        
+            <label for="instructor">Instructor: </label>
+            <input type="text" id="instructor" name="instructor" required>
+        
+            <label for="classDescription">Description: </label>
+            <textarea id="classDescription" name="classDescription" required></textarea>
+        
+            <button class="btn btn-lg btn-primary" type="submit">Add class</button>
     </div>
+
+        </form>
 <%- include('./partials/footer.ejs') %>
 </body>
 </html>
