@@ -1,18 +1,27 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
     body{
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 0 20px;
+      /* max-width: 1200px; */
+      /* margin: 20px auto; */
+      /* padding: 0 20px; */
       font-family: 'Noto Serif', serif;
-      max-width: 1200px;
-      background-color: aqua;
+      /* max-width: 1200px; */
+      background-color: rgb(204, 204, 204);
     }
-    p, h1, h2, h3, a, ul{
+      p, h2, h3, a, ul{
       margin: 0;
       padding: 0;
       text-decoration: none;
       color: #222;
     }
+     h1 {
+      margin: 0;
+      padding: 0;
+      text-decoration: none;
+      color: rgb(147,183,209);
+      margin-left: 20px;
+      
+    }
+    
 
     /* nav & footer styles */
     nav{
@@ -20,29 +29,55 @@
       justify-content: space-between;
       margin-bottom: 60px;
       padding-bottom: 10px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 10px solid rgb(37,57,89);
       text-transform: uppercase;
+      background-image: linear-gradient( rgb(0,102,72), rgb(0,153,107));
+      height: 150px;
+      
+    }
+    .btn {
+      background-color: rgb(89,192,95);
+      height: 30px;
+      width: 150px;;
+      font-size: 18px;
+      border: white;
+      box-shadow: 2px 2px rgb(190,191,193);
+      
+      
     }
     nav ul{
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      margin-right: 20px;
     }
     nav li{
       list-style-type: none;
       margin-left: 20px;
+      
     }
+
     nav h1{
       font-size: 3em;
     }
-    nav p, nav a{
-      color: #777;
+    nav p {
+      color: white;
       font-weight: 300;
+      margin-left: 27px;
+    }
+   nav a{
+      
+      font-weight: 300;
+      
     }
     footer{
-      color: #777;
+      display: flex auto;
+      height: 30px;
+      background-color: rgb(37,57,89);
+      color: white;
       text-align: center;
       margin: 80px auto 20px;
+      border-top: 10px, solid white;
     }
     h2{
       margin-bottom: 40px;
@@ -52,7 +87,14 @@
       margin-bottom: 8px;
     }
     .content{
-      margin-left: 20px;
+      margin-left: 20px; 
+    }
+    #us {
+      margin-left: 8%;
+      margin-right: 8%;
+    }
+    #info {
+      margin-left: 45%;    
     }
 
     /* index styles */
@@ -60,34 +102,56 @@
     /* details styles */
 
     /* create styles */
-    .create-blog form{
+    .create-blog form {
       max-width: 400px;
       margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+    
+    .create-blog label {
+      display: block;
+      margin-top: 16px;
+      text-align: center; /* Center align the labels */
+      font-size: 1.1em;
+      color: #555; /* Adjust text color */
+    }
+    
     .create-blog input,
-    .create-blog textarea{
+    .create-blog textarea {
       display: block;
       width: 100%;
-      margin: 10px 0;
-      padding: 8px;
+      margin: 8px 0;
+      padding: 12px; /* Increase padding for better visual appearance */
+      box-sizing: border-box;
+      border: 1px solid #ccc; /* Add a border for a cleaner look */
+      border-radius: 6px; /* Add border-radius for rounded corners */
+      background-color: #f9f9f9; /* Light background color */
+      transition: border-color 0.3s ease; /* Smooth transition for border color */
     }
-    .create-blog label{
-      display: block;
-      margin-top: 24px;
+    
+    .create-blog input:focus,
+    .create-blog textarea:focus {
+      border-color: #555; /* Change border color on focus */
     }
-    textarea{
-      height: 120px;
-    }
-    .create-blog button{
-      margin-top: 20px;
+    
+    .create-blog button {
+      margin-top: 15px;
       background: crimson;
       color: white;
-      padding: 6px;
+      padding: 8px; /* Increase padding for better visual appearance */
       border: 0;
       font-size: 1.2em;
       cursor: pointer;
+      height: 50px;
+      width: 100%; /* Make the button full-width */
+      box-sizing: border-box; /* Include padding in the button's width */
+      border-radius: 5px; /* Add border-radius for rounded corners */
+      transition: background-color 0.3s ease; /* Smooth transition for background color */
     }
-    .create-blog button:hover{
-      background: #222;
+    
+    .create-blog button:hover {
+      background: #8b0000; /* Darker shade on hover */
     }
-
+  
