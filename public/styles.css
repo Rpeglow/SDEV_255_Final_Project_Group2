@@ -22,6 +22,7 @@
       padding-bottom: 10px;
       border-bottom: 1px solid #ddd;
       text-transform: uppercase;
+      background-color:#222;
     }
     nav ul{
       display: flex;
@@ -60,34 +61,56 @@
     /* details styles */
 
     /* create styles */
-    .create-blog form{
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .create-blog input,
-    .create-blog textarea{
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 8px;
-    }
-    .create-blog label{
-      display: block;
-      margin-top: 24px;
-    }
-    textarea{
-      height: 120px;
-    }
-    .create-blog button{
-      margin-top: 20px;
-      background: crimson;
-      color: white;
-      padding: 6px;
-      border: 0;
-      font-size: 1.2em;
-      cursor: pointer;
-    }
-    .create-blog button:hover{
-      background: #222;
-    }
+/* ... your existing styles ... */
 
+.create-blog form {
+  max-width: 400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-blog label {
+  display: block;
+  margin-top: 16px;
+  text-align: center; /* Center align the labels */
+  font-size: 1.1em;
+  color: #555; /* Adjust text color */
+}
+
+.create-blog input,
+.create-blog textarea {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px; /* Increase padding for better visual appearance */
+  box-sizing: border-box;
+  border: 1px solid #ccc; /* Add a border for a cleaner look */
+  border-radius: 6px; /* Add border-radius for rounded corners */
+  background-color: #f9f9f9; /* Light background color */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.create-blog input:focus,
+.create-blog textarea:focus {
+  border-color: #555; /* Change border color on focus */
+}
+
+.create-blog button {
+  margin-top: 20px;
+  background: crimson;
+  color: white;
+  padding: 14px; /* Increase padding for better visual appearance */
+  border: 0;
+  font-size: 1.2em;
+  cursor: pointer;
+  width: 100%; /* Make the button full-width */
+  box-sizing: border-box; /* Include padding in the button's width */
+  border-radius: 6px; /* Add border-radius for rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+.create-blog button:hover {
+  background: #8b0000; /* Darker shade on hover */
+}
