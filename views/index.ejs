@@ -8,10 +8,12 @@
         <% if(blogs.length > 0) { %>
             <% blogs.forEach(blog => { %>
                 <!-- name, description, subject , and  credits -->
-                <h3 class="title"><%= blog.name %></h3>
-                <p class="snippet"><%= blog.description %></p>
-                <p class="newclass"><%= blog.subject %></p>
-                <p class="newclass2"><%= blog.credits %></p>
+                <a class="single" href="/blogs/<%= blog.id %>">
+                    <h3 class="title"><%= blog.name %></h3>
+                    <p class="snippet"><%= blog.description %></p>
+                    <p class="newclass"><%= blog.subject %></p>
+                    <p class="newclass2"><%= blog.credits %></p>
+                </a>
             <% }) %>  
         <% } else { %>
             <p>No classes found.</p>
