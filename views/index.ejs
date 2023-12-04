@@ -9,11 +9,11 @@
             <% blogs.forEach(blog => { %>
                 <!-- instructor, name, description, subject , and  credits -->
                 <a class="single" href="/blogs/<%= blog.id %>">
-                    <h3 class="title"><%= blog.instructor %></h3>
-                    <h3 class="title"><%= blog.name %></h3>
-                    <p class="snippet"><%= blog.description %></p>
-                    <p class="newclass"><%= blog.subject %></p>
-                    <p class="newclass2"><%= blog.credits %></p>
+                    <h1>Instructor's Name: <%= blog.instructor %></h1>
+                    <h3>Course Name: <%= blog.name %></h3>
+                    <h3>Description: <%= blog.description %></h4>
+                    <h3>Subject: <%= blog.subject %></h5>
+                    <h3>Credits: <%= blog.credits %></h6>
                 </a>
             <% }) %>  
         <% } else { %>

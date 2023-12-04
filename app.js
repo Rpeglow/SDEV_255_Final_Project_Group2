@@ -33,13 +33,13 @@ app.get('/about', (req, res) => {
 
 // blog routes
 app.get('/blogs/create', (req, res) => {
-    res.render('create',{ title: 'Create a new blog' });
+    res.render('create',{ title: 'Create a new class' });
 });
 
 app.get('/blogs', (req, res) => {
     Blog.find().sort({createdAt: -1})
         .then((blogs) => {
-            res.render('index',{title: 'All Blogs', blogs: blogs})
+            res.render('index',{title: 'All Classes', blogs: blogs})
         })
         .catch((err) => {
             console.log(err);
@@ -62,7 +62,7 @@ app.get('/blogs/:id', (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
     .then(result => {
-        res.render('details', { blog: result, title: 'Blog Details' });
+        res.render('details', { blog: result, title: 'Class Details' });
     })
     .catch(err => {
         console.log(err);
