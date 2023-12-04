@@ -5,20 +5,29 @@
     <div class="create-blog content">
         <form action="/blogs" method="POST">
             <div class="card">
+                <!-- instructor, name, description, subject, credits -->
 
-            <label for="title">Course Title: </label>
-            <input type="text" id="title" name="title" required>
-        
-            <label for="instructor">Instructor: </label>
-            <input type="text" id="instructor" name="instructor" required>
-        
-            <label for="classDescription">Description: </label>
-            <textarea id="classDescription" name="classDescription" required></textarea>
-        
-            <button class="btn btn-lg btn-primary" type="submit">Add class</button>
+                <label for="instructor">Instructor: </label>
+                <input type="text" id="title" name="instructor" required>
+
+                <label for="name">Course Name: </label>
+                <input type="text" id="name" name="name" required>
+            
+                <label for="description">Description: </label>
+                <input type="text" id="description" name="description" required>
+            
+                <label for="subject">Subject: </label>
+                <textarea id="subject" name="subject" required></textarea>
+
+                <label for="credits">Credits: </label>
+                <input id="credits" name="credits" required></textarea>
+            
+                <button class="btn btn-lg btn-primary" type="submit">Add class</button>
+            </div>
+        </form>
     </div>
 
-        </form>
+        
 <%- include('./partials/footer.ejs') %>
 </body>
 </html>

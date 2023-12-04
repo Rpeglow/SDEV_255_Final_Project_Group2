@@ -1,14 +1,22 @@
 const express = require('express');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
+const Blog = require('./models/blog');
 
 //express app
 const app = express();
 
+const dbURI = 'mongodb+srv://Group2:PoSuSaRe@group2.hedeobb.mongodb.net/Courses';
+mongoose.connect(dbURI)
+    .then((result) => {
+        app.listen(3000);
+        console.log("Connected to MongoDB and listening on port 3000");
+    })
+    .catch((err) => console.log(err));
+
 //register view engine
 app.set('view engine', 'ejs');
 
-//listen for requests
-app.listen(3000);
 
 //middleware & static files
 app.use(express.static('public'));
@@ -16,14 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    const blogs = [
-        // name, description, subject area, and number of credits
-        {name: 'ASTR 101', description: 'Solar System Astronomy', subject: 'Astronomy', credits: '3'},
-        {name: 'CHEM 211', description: 'Organic Chemistry 1', subject: 'Chemistry', credits: '5'},
-        {name: 'GEOG 207', description: 'World Geography', subject: 'Geography', credits: '3'},
-        {name: 'PSYC 260', description: 'Health Psychology', subject: 'Psychology', credits: '3'},
-    ];
-    res.render('index',{ title: 'Home', blogs });
+    res.redirect('/blogs');
 });
 
 app.get('/about', (req, res) => {
@@ -31,6 +32,19 @@ app.get('/about', (req, res) => {
 });
 
 // blog routes
+app.get('/blogs/create', (req, res) => {
+    res.render('create',{ title: 'Create a new blog' });
+});
+
+app.get('/blogs', (req, res) => {
+    Blog.find().sort({createdAt: -1})
+        .then((blogs) => {
+            res.render('index',{title: 'All Blogs', blogs: blogs})
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+});
 
 app.post('/blogs', (req, res) => {
     const blog = new Blog(req.body);
@@ -44,10 +58,6 @@ app.post('/blogs', (req, res) => {
         });
     });
     
-app.get('/blogs/create', (req, res) => {
-    res.render('create',{ title: 'Create a new blog' });
-});
-
 app.get('/blogs/:id', (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
@@ -60,6 +70,16 @@ app.get('/blogs/:id', (req, res) => {
 
 });
 
+app.delete('/blogs/:id', (req, res) => {
+    const id = req.params.id;
+    Blog.findByIdAndDelete(id)
+        .then(() => {
+            res.json({redirect: '/blogs'});
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
 
 //404 page
 app.use((req, res) => {
