@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const Blog = require('./models/blog');
+const methodOverride = require('method-override');
 
 //express app
 const app = express();
@@ -22,6 +23,8 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.redirect('/blogs');
@@ -58,6 +61,20 @@ app.post('/blogs', (req, res) => {
         });
     });
     
+// update information
+
+app.patch('/blogs/:id', (req, res) => {
+    let id = req.params.id.trim(); // Remove leading and trailing spaces
+    const update = req.body;
+    Blog.findOneAndUpdate({_id: id}, update, {new: true})
+        .then(() => {
+            res.redirect('/blogs');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+});
+
 app.get('/blogs/:id', (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
