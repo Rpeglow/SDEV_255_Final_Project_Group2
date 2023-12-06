@@ -10,7 +10,8 @@ const app = express();
 const dbURI = 'mongodb+srv://Group2:PoSuSaRe@group2.hedeobb.mongodb.net/Courses';
 mongoose.connect(dbURI)
     .then((result) => {
-        app.listen(3000);
+        var port = process.env.PORT || 3000
+        app.listen(port);
         console.log("Connected to MongoDB and listening on port 3000");
     })
     .catch((err) => console.log(err));
