@@ -1,7 +1,7 @@
 <html lang="en">
-<%- include ('./partials/head.ejs') %>
+<%- include ('../partials/head.ejs') %>
 <body>
-<%- include('./partials/nav.ejs') %>
+<%- include('../partials/nav.ejs') %>
     <div class="create-blog content">
         <form action="/blogs" method="POST" onsubmit="return validateForm()">
             <div class="card">
@@ -20,7 +20,7 @@
                 <textarea id="subject" name="subject" required></textarea>
 
                 <label for="credits">Credits: </label>
-                <input id="credits" name="credits" required></textarea>
+                <input type="number" id="credits" name="credits" required></textarea>
             
                 <button class="btn btn-lg btn-primary" type="submit">Add class</button>
             </div>
@@ -28,6 +28,25 @@
     </div>
 
         
-<%- include('./partials/footer.ejs') %>
+<%- include('../partials/footer.ejs') %>
 </body>
+<script>
+    function validateForm() {
+        // Get form inputs
+        var name = document.getElementById("name").value;
+        var description = document.getElementById("description").value;
+        var subject = document.getElementById("subject").value;
+        var credits = document.getElementById("credits").value;
+
+        // Perform validation
+        if (name === "" || description === "" || subject === "" || credits === "" || isNaN(credits)) {
+            alert("Please fill in all fields and enter a valid number for credits.");
+            return false; // Prevent form submission
+        }
+
+        // Additional validation logic...
+
+        return true; // Allow form submission
+    }
+</script>
 </html>

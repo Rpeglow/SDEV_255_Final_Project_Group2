@@ -1,0 +1,63 @@
+<html lang="en">
+    <%- include ('../partials/head.ejs') %>
+
+<body>
+    <%- include('../partials/nav.ejs') %>
+
+    <div class="details content">
+      <form action="/blogs/ <%= blog._id %>?_method=PATCH" method="POST"onsubmit="return validateForm()">
+
+        <h3>Course Name:</h3><input type="text" id="name" name="name" value="<%= blog.name %>" required><br>
+        <h3>Description: </h4><textarea id="description" name="description" required><%= blog.description %></textarea><br>
+        <h3>Subject: </h5><input type="text" id="subject" name="subject" value="<%= blog.subject %>" required><br>
+        <h3>Credits: </h6><input type="text" id="credits" name="credits" value="<%= blog.credits %>" required><br>
+        <input type="text" name="id" value="<%= blog._id %>" hidden><br>
+     
+        <button type="submit">Update</button>
+        
+      </form>   
+      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+    </div>
+
+
+    <%- include('../partials/footer.ejs') %>
+    <script>
+        const trashcan = document.querySelector('a.delete');
+    
+        trashcan.addEventListener('click', (e) => {
+          const endpoint = `/blogs/${trashcan.dataset.doc}`;
+    
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+        });
+        
+        function validateForm() {
+    // Get form inputs
+    var name = document.getElementById("name").value;
+    var description = document.getElementById("description").value;
+    var subject = document.getElementById("subject").value;
+    var credits = document.getElementById("credits").value;
+
+    // Perform validation
+    if (name === "" || description === "" || subject === "" || credits === "" || isNaN(credits)) {
+        alert("Please fill in all fields and enter a valid number for credits.");
+        return false; // Prevent form submission
+    }
+
+    // Check if credits is a valid number
+    if (isNaN(Number(credits))) {
+        alert("Credits must be a valid number.");
+        return false; // Prevent form submission
+    }
+
+    // Additional validation logic...
+
+    return true; // Allow form submission
+    }
+      </script>
+</body>
+</html>
