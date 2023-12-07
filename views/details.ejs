@@ -1,0 +1,45 @@
+<html lang="en">
+    <%- include ('./partials/head.ejs') %>
+
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="details-blog content">
+      <form action="/blogs/ <%= blog._id %>?_method=PATCH" method="POST">
+
+        <h3>Course Name:</h3>
+        <input type="text" name="name" value="<%= blog.name %>" required><br>
+        <h3>Description: </h4>
+          <textarea name="description" required><%= blog.description %></textarea><br>
+        <h3>Subject: </h5>
+          <input type="text" name="subject" value="<%= blog.subject %>" required><br>
+        <h3>Credits: </h6>
+          <input type="text" name="credits" value="<%= blog.credits %>" required><br>
+        <input type="text" name="id" value="<%= blog._id %>" hidden><br>
+     
+        <button type="submit">Update</button>
+        <br>
+        <a class="delete" data-doc="<%= blog._id %>">Delete</a>
+
+      </form>   
+    </div>
+
+
+    <%- include('./partials/footer.ejs') %>
+    <script>
+        const trashcan = document.querySelector('a.delete');
+    
+        trashcan.addEventListener('click', (e) => {
+          const endpoint = `/blogs/${trashcan.dataset.doc}`;
+    
+          fetch(endpoint, {
+            method: 'DELETE',
+          })
+          .then(response => response.json())
+          .then(data => window.location.href = data.redirect)
+          .catch(err => console.log(err));
+        });
+        
+      </script>
+</body>
+</html>
