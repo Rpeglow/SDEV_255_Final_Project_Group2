@@ -4,10 +4,16 @@
         <p>A Group 2 Site</p>
     </div>
     <ul>
-        
+                   
             <% if (user) { %>
               <li>Welcome, <%= user.email %></li>
               <li><a href="/logout">Log out</a></li>
+                  <div>
+                      <form action="/search" method="GET">
+                        <input type="text" name="query" placeholder="Enter course name. Ex. SDEV 255">
+                        <button type="submit">Search</button>
+                      </form>
+                  </div>
             <% } else { %>
               <li><a href="/login">Log in</a></li>
               <li><a href="/signup" class="btn">Sign up</a></li>

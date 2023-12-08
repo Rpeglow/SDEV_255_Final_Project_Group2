@@ -69,6 +69,22 @@ const blog_update = (req, res) => {
         });
 }
 
+// Search for a class
+const search_get = async (req, res) => {
+    const id = req.params.id;
+    const searchQuery = req.query.query;
+    let blogs = []; // Changed variable name from courses to blogs
+    try {
+        if (searchQuery) {
+            blogs = await Blog.find({ name: new RegExp(searchQuery, 'i') }); // Changed variable name from courses to blogs
+        }
+        res.render('blogs/search', { blogs: blogs, title: 'Search' }); // Now blogs is defined
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while searching for blogs');
+    }
+};
+
 
 module.exports = {
     blog_index,
@@ -76,5 +92,6 @@ module.exports = {
     blog_create_get,
     blog_create_post,
     blog_delete,
-    blog_update
+    blog_update,
+    search_get
 }

@@ -2,13 +2,17 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const blogController = require('./controllers/blogController');
+const authController = require('./controllers/authController');
 const blogRoutes = require('./routes/blogRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
+const path = require('path');
 
 //express app
 const app = express();
+app.set('views', path.join(__dirname, 'views'));
 
 //connect to mongodb & listen for requests
 const dbURI = 'mongodb+srv://Group2:PoSuSaRe@group2.hedeobb.mongodb.net/Courses';
@@ -37,9 +41,12 @@ app.use(cookieParser());
 // routes
 app.get('*', checkUser);
 app.get('/', requireAuth, (req, res) => res.redirect('/blogs'));
+
 // app.get('/', requireAuth, (req, res) => res.render('home',{ title: 'home' }));
 app.use(authRoutes);
 app.use('/blogs', requireAuth, blogRoutes);
+
+app.get('/search', requireAuth, blogController.search_get);
 
 //redirect to /blogs
 
