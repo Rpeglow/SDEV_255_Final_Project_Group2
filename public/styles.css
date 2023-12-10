@@ -242,11 +242,11 @@ button[type="submit"]:hover {
 .details-blog input,
 .details-blog textarea {
   width: 50%;
-  margin: 8px 0;
+  margin: 3px 0;
   padding: 8px;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 4px;
   background-color: #f9f9f9;
   transition: border-color 0.3s ease;
   margin-bottom: -10px;
