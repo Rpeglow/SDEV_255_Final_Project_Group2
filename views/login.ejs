@@ -34,7 +34,7 @@
     try {
       const res = await fetch('/login', { 
         method: 'POST', 
-        body: JSON.stringify({ email, password, role: role.value }),
+        body: JSON.stringify({ email, password, role }),
         headers: {'Content-Type': 'application/json'}
       });
       const data = await res.json();
