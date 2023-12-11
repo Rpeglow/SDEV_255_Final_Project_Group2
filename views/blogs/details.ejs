@@ -4,7 +4,7 @@
 <body>
     <%- include('../partials/nav.ejs') %>
 
-    <div class="details content">
+    <div class="details-blog">
       <form action="/blogs/ <%= blog._id %>?_method=PATCH" method="POST"onsubmit="return validateForm()">
 
         <h3>Course Name:</h3><input type="text" id="name" name="name" value="<%= blog.name %>" required><br>
@@ -13,10 +13,10 @@
         <h3>Credits: </h6><input type="text" id="credits" name="credits" value="<%= blog.credits %>" required><br>
         <input type="text" name="id" value="<%= blog._id %>" hidden><br>
      
-        <button type="submit">Update</button>
-        
+        <button type="submit" class="update-button">Update</button>
+        <a class="delete" data-doc="<%= blog._id %>">Delete</a>
       </form>   
-      <a class="delete" data-doc="<%= blog._id %>">delete</a>
+
     </div>
 
 
