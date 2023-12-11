@@ -1,1 +1,20 @@
 <!-- take search out of nav put in here -->
+
+<html lang="en">
+     <%- include ('./partials/head.ejs') %> 
+    
+<body>
+
+    <%- include('./partials/nav.ejs') %>
+        <div class="search-container">
+            <div class="search-form">
+            <form action="/search" method="GET">
+                <input type="text" name="query" placeholder="Enter course name. Ex. SDEV 255">
+                <button type="submit" class="search-button">Search</button>
+            </form>
+            </div>
+        </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
