@@ -7,7 +7,7 @@ const Schedule = require('../models/schedule');
 const blog_index = (req, res) => {
     Blog.find().sort({ createdAt: -1 })
         .then((result) => {
-            res.render('blogs/index', { title: 'All Classes', blogs: result })
+            res.render('blogs/index', { title: 'All Classes', blogs: result, role: req.user.role, user: req.user })
         })
         .catch((err) => {
             console.log(err);

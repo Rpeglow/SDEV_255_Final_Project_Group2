@@ -35,11 +35,10 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
 
-
-
-
 // routes
 app.get('*', checkUser);
+
+
 app.get('/', requireAuth, (req, res) => res.redirect('/blogs'));
 
 app.use(authRoutes);
