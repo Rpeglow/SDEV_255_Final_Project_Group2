@@ -1,8 +1,6 @@
 <%- include('partials/head'); -%>
 <%- include('./partials/nav.ejs') %> 
 
-
-
 <div class="form-container signupsignin">
 <form autocomplete="off" action="/signup">
   <h2>Login</h2>
@@ -32,7 +30,7 @@
     // get values
     const email = form.email.value;
     const password = form.password.value;
-    
+    const role = ''; // Add the missing role variable declaration and assignment here
 
     try {
       const res = await fetch('/login', { 
