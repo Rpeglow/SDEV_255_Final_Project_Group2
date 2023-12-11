@@ -42,20 +42,20 @@ app.use(cookieParser());
 app.get('*', checkUser);
 app.get('/', requireAuth, (req, res) => res.redirect('/blogs'));
 
-// app.get('/', requireAuth, (req, res) => res.render('home',{ title: 'home' }));
 app.use(authRoutes);
 app.use('/blogs', requireAuth, blogRoutes);
 
 app.get('/search', requireAuth, blogController.search_get);
 
-//redirect to /blogs
-
 //searchpage
-app.get('/searchpage', (req, res) => res.render('searchpage',{ title: 'Searchpage' }));
+app.get('/searchpage', requireAuth, (req, res) => res.render('searchpage',{ title: 'Searchpage' }));
 
 //about page
 app.get('/about', (req, res) => res.render('about',{ title: 'About' }));
 
 //404 page
 app.use((req, res) => res.status(404).render('404',{ title: '404' }));
+
+
+// app.get('/', requireAuth, (req, res) => res.render('home',{ title: 'home' }));
 
