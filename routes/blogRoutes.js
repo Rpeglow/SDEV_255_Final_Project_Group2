@@ -1,6 +1,6 @@
 const express = require('express');
 const blogController = require('../controllers/blogController');
-
+const { requireAuth, checkUser } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // home page route GET
@@ -9,6 +9,7 @@ router.get('/',blogController.blog_index);
 
 // Student Routes
 // post add a "blog" to schedule POST /schedule/:studentId
+router.post('/add-to-schedule', requireAuth, blogController.add_to_schedule);
 // get all "blogs" from schedule for a specific student GET /schedule/:studentId
 // delete a "blog" from schedule for a specific student DELETE /schedule/:studentId/:blogId
 

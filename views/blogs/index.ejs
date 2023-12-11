@@ -12,7 +12,8 @@
         <% } %>
         
         <% if(blogs.length > 0) { %>
-            <select class="dropdown">
+            <form action="/add-to-schedule" method="POST">
+                <select name="blogId" class="dropdown">
                 <% blogs.forEach(blog => { %>
                     <option value="<%= blog.id %>">
                         <%= blog.name %>
@@ -22,6 +23,8 @@
                     </option>
                 <% }) %>
             </select>
+            <button type="submit">Add to Schedule</button>
+            </form>
         <% } else { %>
             <p>No classes found.</p>
         <% } %>

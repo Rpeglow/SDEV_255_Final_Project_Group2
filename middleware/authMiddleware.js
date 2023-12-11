@@ -10,7 +10,7 @@ const requireAuth = (req, res, next) => {
     // PoSuSaRe is the secret key
     jwt.verify(token, 'PoSuSaRe', (err, decodedToken) => {
       if (err) {
-        console.log(err.message);
+        // console.log(err.message);
         res.redirect('/login');
       } else {
         console.log(decodedToken);

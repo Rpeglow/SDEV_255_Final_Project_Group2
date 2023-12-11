@@ -85,6 +85,29 @@ const search_get = async (req, res) => {
     }
 };
 
+// Add a class to a schedule
+const add_to_schedule = async (req, res) => {
+    const studentId = req.user._id;
+    const blogId = req.body.blogId;
+    try {
+        const schedule = await Schedule.findOne({ user: studentId });
+        if (schedule) {
+            schedule.classes.push(blogId);
+            await schedule.save();
+        } else {
+            const newSchedule = new Schedule({
+                user: studentId,
+                classes: [blogId]
+            });
+            await newSchedule.save();
+        }
+        res.status(200).res.render('blogs/index', { user: req.user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while adding class to schedule');
+    }
+};
+
 
 module.exports = {
     blog_index,
@@ -93,5 +116,6 @@ module.exports = {
     blog_create_post,
     blog_delete,
     blog_update,
-    search_get
+    search_get,
+    add_to_schedule
 }
