@@ -29,11 +29,12 @@
     // get values
     const email = form.email.value;
     const password = form.password.value;
+    
 
     try {
       const res = await fetch('/login', { 
         method: 'POST', 
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, role: role.value }),
         headers: {'Content-Type': 'application/json'}
       });
       const data = await res.json();

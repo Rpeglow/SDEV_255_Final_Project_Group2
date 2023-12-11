@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
+const Schedule = require('../models/schedule');
 
 // handle errors
 const handleErrors = (err) => {
@@ -53,10 +54,10 @@ module.exports.login_get = (req, res) => {res.render('login', { title: 'Login'})
 }
 
 module.exports.signup_post = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   try {
-    const user = await User.create({ email, password });
+    const user = await User.create({ email, password, role });
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
@@ -69,10 +70,10 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_post = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
     try {
-      const user = await User.login(email, password);
+      const user = await User.login(email, password, role);
       const token = createToken(user._id);
       res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
       res.status(200).json({ user: user._id });
