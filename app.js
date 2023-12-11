@@ -50,6 +50,8 @@ app.get('/search', requireAuth, blogController.search_get);
 
 //redirect to /blogs
 
+//searchpage
+app.get('/searchpage', (req, res) => res.render('searchpage',{ title: 'Searchpage' }));
 
 //about page
 app.get('/about', (req, res) => res.render('about',{ title: 'About' }));

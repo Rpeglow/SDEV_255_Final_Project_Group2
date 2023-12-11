@@ -299,7 +299,7 @@ nav .logout {
 /* Assuming the form is inside a container with the class "search-container" */
 .search-container {
   display: flex;
-  justify-content: flex-end; /* Align the form to the far right */
+  justify-content: center; /* Align the form to the center */
   align-items: center; /* Center vertically within the container */
   margin-right: 20px; /* Add some right margin for spacing */
 }
