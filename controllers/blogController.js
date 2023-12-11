@@ -1,5 +1,6 @@
 const Blog = require('../models/blog');
-
+const User = require("../models/User");
+const Schedule = require('../models/schedule');
 
 
 // Displays all classes
@@ -31,8 +32,7 @@ const blog_create_get = (req, res) => {
 }
 
 // Creates a new class
-const blog_create_post = (req, res) => {
-    const blog = new Blog(req.body);
+const blog_create_post = (req, res) => {const blog = new Blog(req.body);
 
     blog.save()
         .then((result) => {
@@ -73,12 +73,12 @@ const blog_update = (req, res) => {
 const search_get = async (req, res) => {
     const id = req.params.id;
     const searchQuery = req.query.query;
-    let blogs = []; // Changed variable name from courses to blogs
+    let blogs = []; // Array of blogs to be returned
     try {
         if (searchQuery) {
-            blogs = await Blog.find({ name: new RegExp(searchQuery, 'i') }); // Changed variable name from courses to blogs
+            blogs = await Blog.find({ name: new RegExp(searchQuery, 'i') }); 
         }
-        res.render('blogs/search', { blogs: blogs, title: 'Search' }); // Now blogs is defined
+        res.render('blogs/search', { blogs: blogs, title: 'Search' });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while searching for blogs');
