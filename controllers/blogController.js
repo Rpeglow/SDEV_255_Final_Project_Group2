@@ -86,6 +86,8 @@ const search_get = async (req, res) => {
 };
 
 
+
+
 module.exports = {
     blog_index,
     blog_details,
