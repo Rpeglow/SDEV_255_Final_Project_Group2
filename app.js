@@ -47,13 +47,13 @@ app.use('/blogs', requireAuth, blogRoutes);
 app.get('/search', requireAuth, blogController.search_get);
 
 //searchpage
-app.get('/searchpage', requireAuth, (req, res) => res.render('searchpage',{ title: 'Searchpage' }));
+app.get('/searchpage', requireAuth, (req, res) => res.render('searchpage',{ title: 'Searchpage', user: req.user }));
 
 //about page
-app.get('/about', (req, res) => res.render('about',{ title: 'About' }));
+app.get('/about', (req, res) => res.render('about',{ title: 'About', user: req.user }));
 
 //404 page
-app.use((req, res) => res.status(404).render('404',{ title: '404' }));
+app.use((req, res) => res.status(404).render('404',{ title: '404', user: req.user  }));
 
 
 // app.get('/', requireAuth, (req, res) => res.render('home',{ title: 'home' }));

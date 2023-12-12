@@ -19,16 +19,16 @@ const blog_details = (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then(result => {
-            res.render('blogs/details', { blog: result, title: 'Class Details' });
+            res.render('blogs/details', { blog: result, title: 'Class Details', user: req.user });
         })
         .catch(err => {
-            res.status(404).render('404', { title: 'Class not found' });
+            res.status(404).render('404', { title: 'Class not found', user: req.user });
         });
 }
 
 // Creates a new class
 const blog_create_get = (req, res) => {
-    res.render('blogs/create', { title: 'Create a new class' });
+    res.render('blogs/create', { title: 'Create a new class', user: req.user });
 }
 
 // Creates a new class
@@ -78,7 +78,7 @@ const search_get = async (req, res) => {
         if (searchQuery) {
             blogs = await Blog.find({ name: new RegExp(searchQuery, 'i') }); 
         }
-        res.render('blogs/search', { blogs: blogs, title: 'Search' });
+        res.render('blogs/search', { blogs: blogs, title: 'Search', user: req.user });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while searching for blogs');
