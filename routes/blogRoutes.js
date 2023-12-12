@@ -3,14 +3,27 @@ const blogController = require('../controllers/blogController');
 const { requireAuth, checkUser } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-// home page route GET
+router.post('/create-schedule', requireAuth, blogController.create_schedule);
+
+router.post('/add-to-schedule', requireAuth, blogController.add_to_schedule);
+
 router.get('/',blogController.blog_index);
 
 
 // Student Routes
 // post add a "blog" to schedule POST /schedule/:studentId
-router.post('/add-to-schedule', requireAuth, blogController.add_to_schedule);
+
 // get all "blogs" from schedule for a specific student GET /schedule/:studentId
+router.get('/my-courses', requireAuth, async (req, res) => {
+    const studentId = req.user._id;
+    try {
+        const blogs = await Blog.find({ user_courses: studentId });
+        res.render('blogs/my-courses', { blogs: blogs, title: 'My Courses', user: req.user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while fetching my courses');
+    }
+});
 // delete a "blog" from schedule for a specific student DELETE /schedule/:studentId/:blogId
 
 // Teacher Routes

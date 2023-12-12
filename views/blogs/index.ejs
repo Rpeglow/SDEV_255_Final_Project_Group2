@@ -12,7 +12,7 @@
         <% } %>
         
         <% if(blogs.length > 0) { %>
-            <form action="/add-to-schedule" method="POST">
+            <form action="/create-schedule" method="POST">
                 <select name="blogId" class="dropdown">
                 <% blogs.forEach(blog => { %>
                     <option value="<%= blog.id %>">

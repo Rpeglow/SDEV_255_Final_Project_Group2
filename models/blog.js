@@ -18,7 +18,10 @@ const blogSchema = new Schema({
         type: Number,
         required: true,
         },
-    }, {timestamps: true});
+    user_courses: 
+        [{type: String}],
+    },
+     {timestamps: true});
 
         // Model name is singular and will be pluralized by mongoose ex: Blog -> Blogs
 const Blog = mongoose.model('Blog', blogSchema);

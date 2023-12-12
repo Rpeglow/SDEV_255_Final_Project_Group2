@@ -5,7 +5,8 @@ const Schedule = require('../models/schedule');
 
 // Displays all classes
 const blog_index = (req, res) => {
-    Blog.find().sort({ createdAt: -1 })
+    const studentId = req.user._id;
+    Blog.find({ user_courses: { $ne: studentId } }).sort({ createdAt: -1 })
         .then((result) => {
             res.render('blogs/index', { title: 'All Classes', blogs: result, role: req.user.role, user: req.user })
         })
@@ -19,7 +20,7 @@ const blog_details = (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then(result => {
-            res.render('blogs/details', { blog: result, title: 'Class Details' });
+            res.render('blogs/details', { blog: result, title: 'Class Details', user: req.user });
         })
         .catch(err => {
             res.status(404).render('404', { title: 'Class not found' });
@@ -28,7 +29,7 @@ const blog_details = (req, res) => {
 
 // Creates a new class
 const blog_create_get = (req, res) => {
-    res.render('blogs/create', { title: 'Create a new class' });
+    res.render('blogs/create', { title: 'Create a new class', user: req.user });
 }
 
 // Creates a new class
@@ -49,7 +50,7 @@ const blog_delete = (req, res) => {
     
     Blog.findByIdAndDelete(id)
         .then(result => {
-            res.json({ redirect: '/blogs' });
+            res.json({ redirect: '/blogs', user: req.user });
         })
         .catch(err => {
             console.log(err);
@@ -100,11 +101,33 @@ const add_to_schedule = async (req, res) => {
                 classes: [blogId]
             });
             await newSchedule.save();
+            // Add the user to the class's user_courses
+            await Blog.findOneAndUpdate({ _id: blogId }, { $push: { user_courses: studentId } });
         }
-        res.status(200).res.render('blogs/index', { user: req.user });
+        res.status(200).render('blogs/index', { user: req.user });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while adding class to schedule');
+    }
+};
+
+const create_schedule = async (req, res) => {
+    const studentId = req.user._id;
+    try {
+        const schedule = await Schedule.findOne({ user: studentId });
+        if (!schedule) {
+            const newSchedule = new Schedule({
+                user: studentId,
+                classes: []
+            });
+            await newSchedule.save();
+            res.status(200).send('New schedule created');
+        } else {
+            res.status(400).send('Schedule already exists');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('An error occurred while creating schedule');
     }
 };
 
@@ -117,5 +140,6 @@ module.exports = {
     blog_delete,
     blog_update,
     search_get,
-    add_to_schedule
+    add_to_schedule,
+    create_schedule
 }

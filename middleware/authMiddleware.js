@@ -33,7 +33,7 @@ const checkUser = (req, res, next) => {
         next();
       } else {
         let user = await User.findById(decodedToken.id);
-        console.log(user);
+        // console.log(user); check that user is logged in
         req.user = user;
         next();
       }
