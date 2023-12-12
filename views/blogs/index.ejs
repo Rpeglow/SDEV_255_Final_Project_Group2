@@ -7,8 +7,15 @@
         
         <% if(role === 'teacher') { %>
             <p>Teacher</p>
+            <ul>
+                <li><a href="/blogs/create"><button class="btn">Add to the Course Catalog. </button></a></li>
+                <li><a href="/blogs/:id"><button class = "btn"> Edit a Class</button></a></li>
+            </ul>
         <% } else if(role === 'student') { %>
             <p>Student</p>
+            <ul>
+                <li><a href="/searchpage"><button class="btn">Search for class</button></a></li>
+            </ul>
         <% } %>
         
         <% if(blogs.length > 0) { %>

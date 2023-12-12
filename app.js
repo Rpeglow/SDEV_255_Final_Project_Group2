@@ -42,8 +42,6 @@ app.get('/', requireAuth, (req, res) => res.redirect('/blogs'));
 
 app.use(authRoutes);
 
-
-
 app.get('/search', requireAuth, blogController.search_get);
 
 //searchpage
