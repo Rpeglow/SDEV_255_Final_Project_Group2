@@ -5,8 +5,7 @@ const Schedule = require('../models/schedule');
 
 // Displays all classes
 const blog_index = (req, res) => {
-    const studentId = req.user._id;
-    Blog.find({ user_courses: { $ne: studentId } }).sort({ createdAt: -1 })
+    Blog.find().sort({ createdAt: -1 })
         .then((result) => {
             res.render('blogs/index', { title: 'All Classes', blogs: result, role: req.user.role, user: req.user })
         })
@@ -20,10 +19,10 @@ const blog_details = (req, res) => {
     const id = req.params.id;
     Blog.findById(id)
         .then(result => {
-            res.render('blogs/details', { title: 'Class Details', user: req.user, blog: result, role: req.user.role });
+            res.render('blogs/details', { blog: result, title: 'Class Details', user: req.user });
         })
         .catch(err => {
-            res.status(404).render('404', { title: 'Class not found' });
+            res.status(404).render('404', { title: 'Class not found', user: req.user });
         });
 }
 
@@ -50,7 +49,7 @@ const blog_delete = (req, res) => {
     
     Blog.findByIdAndDelete(id)
         .then(result => {
-            res.json({ redirect: '/blogs', user: req.user });
+            res.json({ redirect: '/blogs' });
         })
         .catch(err => {
             console.log(err);
@@ -79,7 +78,7 @@ const search_get = async (req, res) => {
         if (searchQuery) {
             blogs = await Blog.find({ name: new RegExp(searchQuery, 'i') }); 
         }
-        res.render('blogs/search', { blogs: blogs, title: 'Search' });
+        res.render('blogs/search', { blogs: blogs, title: 'Search', user: req.user });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred while searching for blogs');
@@ -96,6 +95,5 @@ module.exports = {
     blog_create_post,
     blog_delete,
     blog_update,
-    search_get,
-    
+    search_get
 }
