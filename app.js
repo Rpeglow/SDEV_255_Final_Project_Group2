@@ -37,7 +37,8 @@ app.use(cookieParser());
 
 // routes
 app.get('*', checkUser);
-app.use('/blogs', requireAuth, blogRoutes);
+
+
 app.get('/', requireAuth, (req, res) => res.redirect('/blogs'));
 
 app.use(authRoutes);
@@ -55,4 +56,4 @@ app.use((req, res) => res.status(404).render('404',{ title: '404', user: req.use
 
 
 // app.get('/', requireAuth, (req, res) => res.render('home',{ title: 'home' }));
-
+// app.get('/search', requireAuth, blogController.search_get);
