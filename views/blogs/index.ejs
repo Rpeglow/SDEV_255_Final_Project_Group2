@@ -9,44 +9,45 @@
             <p>Teacher</p>
             <ul>
                 <li><a href="/blogs/create"><button class="btn">Add to the Course Catalog. </button></a></li>
-                <li><a href="/blogs/:id"><button class = "btn"> Edit a Class</button></a></li>
-            </ul>
-
-
-
+                <% if (blogs.length > 0) { %>
+                    <% blogs.forEach(blog => { %>
+                      <a class="single" href="/blogs/<%= blog._id %>">
+                        
+                                <h3>Course Name: <%= blog.name %></h3>
+                                <h3>Description: <%= blog.description %></h4>
+                                <h3>Subject: <%= blog.subject %></h5>
+                      </a>
+                    <% }) %>
+                  <% } else { %>
+                    <p>There are no blogs to display...</p>
+                  <% } %>
         <% } else if(role === 'student') { %>
+
+
 
 
             <p>Student</p>
             <ul>
                 <li><a href="/searchpage"><button class="btn">Search for class</button></a></li>
+                <% if(blogs.length > 0) { %>
+                    <ul>
+                        <% blogs.forEach(blog => { %>
+                            <li>
+                                <h3><%= blog.name %></h3>
+                                <p><%= blog.description %></p>
+                                <p>Subject: <%= blog.subject %></p>
+                                <p>Credits: <%= blog.credits %></p>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } %>
             </ul>
-        <% } %>
-
-
-
-       
-
-        
-        <% if(blogs.length > 0) { %>
-            
-                <% blogs.forEach(blog => { %>
-                    <option value="<%= blog.id %>">
-                        <%= blog.name %>
-                        <%= blog.description %>
-                        <%= blog.subject %>
-                        <%= blog.credits %>
-                    </option>
-                <% }) %>
-            
-            
         <% } else { %>
             <p>No classes found.</p>
         <% } %>
 
-    </div>
+    </div>   
 
     <%- include('../partials/footer.ejs') %>
 </body>
 </html>
-
