@@ -38,6 +38,15 @@
                                 <p>Subject: <%= blog.subject %></p>
                                 <p>Credits: <%= blog.credits %></p>
                             </li>
+
+
+                            <form action="blogs/add_class_to_course/<%= blog._id %>" method="POST" >
+                                <input type="" name="blog_id" value="<%= blog._id %>">
+                                <input type="" name="user_id" value="<%= user._id %>">
+                                <button class="btn btn-lg btn-primary" type="submit">Add class</button>
+                            
+                            
+                            </form>
                         <% }) %>
                     </ul>
                 <% } %>
@@ -49,5 +58,24 @@
     </div>   
 
     <%- include('../partials/footer.ejs') %>
+    <script>
+        var blog_id = document.getElementById("blog_id").value;
+        var user_id = document.getElementById("user_id").value;
+
+            fetch('/blogs/add_class_to_course/' + blog_id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: user_id }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    </script>
 </body>
 </html>

@@ -6,15 +6,13 @@ const router = express.Router();
 
 
 
-
+router.post('/add_class_to_course/:id', requireAuth, blogController.add_class_to_course);
 router.get('/',blogController.blog_index);
 
 
 // Student Routes
 // post add a "blog" to schedule 
-
 // get all "blogs" from schedule for a specific student 
-
 // delete a "blog" from schedule for a specific student DELETE 
 
 // Teacher Routes
