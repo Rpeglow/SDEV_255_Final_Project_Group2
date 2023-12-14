@@ -6,30 +6,45 @@
         <h2>Courses offered this semester</h2>
         
         <% if(role === 'teacher') { %>
-            <p>Teacher</p>
-            <ul>
-                <li><a href="/blogs/create"><button class="btn">Add to the Course Catalog. </button></a></li>
-                <% if (blogs.length > 0) { %>
-                    <% blogs.forEach(blog => { %>
-                      <a class="single" href="/blogs/<%= blog._id %>">
-                        
-                                <h3>Course Name: <%= blog.name %></h3>
-                                <h3>Description: <%= blog.description %></h4>
-                                <h3>Subject: <%= blog.subject %></h5>
-                      </a>
-                    <% }) %>
-                  <% } else { %>
-                    <p>There are no blogs to display...</p>
-                  <% } %>
-        <% } else if(role === 'student') { %>
-
-
-
-
-            <p>Student</p>
+                <h3>Teacher (Click course to edit or delete!)</h3>
+                <ul>
+                    <li><a href="/blogs/create"><button class="btn">Add Course</button></a></li>
+                    <% if (blogs.length > 0) { %>
+                        <% blogs.forEach(blog => { %>
+                          <a class="single" href="/blogs/<%= blog._id %>">
+                            
+                                    <h3>Course Name: <%= blog.name %></h3>
+                                    <h3>Description: <%= blog.description %></h3>
+                                    <h3>Subject: <%= blog.subject %></h3>
+                          </a>
+                        <% }) %>
+                      <% } else { %>
+                        <p>There are no blogs to display...</p>
+                      <% } %>
+            <% } else if(role === 'student') { %>
+            
+            <h3>Student: (Select and add course to your schedule!)</h3>
             <ul>
                 <li><a href="/searchpage"><button class="btn">Search for class</button></a></li>
+                <li>
+                    <form id="addClassForm" action="/add-class" method="post" onsubmit="return validateSelection()">
+                        <label for="classSelect">Select a Class:</label>
+                        <select id="classSelect" name="classId">
+                            <option value="" selected disabled>Select course</option>
+                            <% if(blogs.length > 0) { %>
+                                <% blogs.forEach(blog => { %>
+                                    <option value="<%= blog._id %>"><%= blog.name %></option>
+                                <% }) %>
+                            <% } else { %>
+                                <option value="" disabled>No classes available</option>
+                            <% } %>
+                        </select>
+                        <button type="submit" class="btn">Add Class</button>
+                    </form>
+                    <p id="errorMessage" style="color: red;"></p>
+                </li>
                 <% if(blogs.length > 0) { %>
+                    <!-- Display student's content -->
                     <ul>
                         <% blogs.forEach(blog => { %>
                             <li>
@@ -45,9 +60,23 @@
         <% } else { %>
             <p>No classes found.</p>
         <% } %>
-
     </div>   
 
     <%- include('../partials/footer.ejs') %>
+
+    <script>
+        function validateSelection() {
+            var selectedCourse = document.getElementById('classSelect').value;
+            var errorMessage = document.getElementById('errorMessage');
+
+            if (selectedCourse === "") {
+                errorMessage.textContent = "Please select a course!";
+                return false; // Prevent form submission
+            } else {
+                errorMessage.textContent = "";
+                return true; // Allow form submission
+            }
+        }
+    </script>
 </body>
 </html>
