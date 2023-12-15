@@ -38,7 +38,7 @@
                                             <form class="remove-class-form">
                                                 <input type="hidden" name="blog_id" value="<%= blog._id %>" class="blog_id">
                                                 <input type="hidden" name="user_id" value="<%= user._id %>" class="user_id">
-                                                <input type="hidden" name="_method" value="DELETE">
+                                                <!-- <input type="hidden" name="_method" value="DELETE"> -->
                                                 <button class="btn btn-lg btn-danger delete-class-button" type="submit">Remove class from schedule</button>
                                             </form>
                                         </a>
@@ -88,39 +88,45 @@
      * 
      * @param {Event} event - The click event object.
      */
-    var buttons = document.querySelectorAll('.add-class-button');
-    buttons.forEach(function(button) {
-        button.addEventListener('click', function(event) {
-            event.preventDefault();
-            var form = this.parentElement;
-            var blog_id = form.querySelector('.blog_id').value;
-            var user_id = form.querySelector('.user_id').value;
-            fetch('/blogs/add_class_to_course/' + blog_id, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: user_id }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('NOT REACHING HERE:', data);
-                location.reload();
-            })
-            .catch((error) => {   
-                console.error('Error:', error);
-            });
+     var buttons = document.querySelectorAll('.add-class-button');
+buttons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var form = this.parentElement;
+        var blog_id = form.querySelector('.blog_id').value;
+        var user_id = form.querySelector('.user_id').value;
+        fetch('/blogs/add_class_to_course/' + blog_id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: user_id }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            location.reload(); // Reload the page
+        })
+        .catch((error) => {   
+            console.error('Error:', error);
         });
-    });
+    }); 
+});
 
-     // Send the DELETE request
-     var removeButtons = document.querySelectorAll('.delete-class-button');
+// Send the DELETE request
+var removeButtons = document.querySelectorAll('.delete-class-button');
 removeButtons.forEach(function(button) {
     button.addEventListener('click', function(event) {
         event.preventDefault();
         var form = this.parentElement;
         var blog_id = form.querySelector('.blog_id').value;
         var user_id = form.querySelector('.user_id').value;
+        console.log(blog_id);
         fetch('/blogs/drop_class/' + blog_id, {
             method: 'DELETE',
             headers: {
@@ -128,15 +134,27 @@ removeButtons.forEach(function(button) {
             },
             body: JSON.stringify({ user_id: user_id }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            location.reload();
-        })
-        .catch((error) => {   
-            console.error('Error:', error);
-        });
+        .then(response => {
+            console.log(response.status); // Log the status code
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    // Check the response type
+    const contentType = response.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+        throw new TypeError("Oops, we haven't got JSON!");
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Success:', data);
+    location.reload();
+})
+.catch((error) => {   
+    console.error('Error:', error);
+});
     });
 });
+
 </script>
     

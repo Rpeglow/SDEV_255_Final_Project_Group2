@@ -91,7 +91,8 @@ const add_class_to_course = async (req, res) => {
     let user_id = req.body.user_id;
     await Blog.findByIdAndUpdate(id, {$push: {user_courses: new mongoose.Types.ObjectId(user_id)}}, {new: true})
     .then((result) => {
-        res.redirect('/blogs');
+        res.json({ redirect: '/blogs' });
+        
     })
     .catch(err => {
         console.log(err);
@@ -103,7 +104,7 @@ const drop_class = async (req, res) => {
     let user_id = req.body.user_id;
     await Blog.findByIdAndUpdate(id, {$pull: {user_courses: new mongoose.Types.ObjectId(user_id)}}, {new: true})
     .then((result) => {
-        res.redirect('/blogs');
+        res.json({ redirect: '/blogs' });
     })
     .catch(err => {
         console.log(err);
