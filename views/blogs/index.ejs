@@ -24,15 +24,15 @@
             <% } else if(role === 'student') { %>
                 <h1>Student</h1>
                 <h2>Your Schedule</h2>
-                            <% if (blogs.user_courses != undefined) { %>
+                            <% if (blogs.length > 0 ) { %>
                             <% blogs.forEach(function(blog) { %>
                                 <% if(blog.user_courses && Array.isArray(blog.user_courses)) { %>
                                     <% blog.user_courses.forEach(function(user_course) { %>
                                         <li>
                                             <h3><%= blog.name %></h3>
-                                            <p><%= user_course.description %></p>
-                                            <p>Subject: <%= user_course.subject %></p>
-                                            <p>Credits: <%= user_course.credits %></p>
+                                            <p><%= blog.description %></p>
+                                            <p>Subject: <%= blog.subject %></p>
+                                            <p>Credits: <%= blog.credits %></p><br>
                                         </li>
                                     <% }); %>
                                     
@@ -44,7 +44,8 @@
                 <ul>
                     <li><a href="/searchpage"><button class="btn">Search for class</button></a></li>
                     <% if(blogs.length > 0) { %>
-                        <ul>
+                <ul>
+                    <h1>All courses offered.</h1>
                             <% blogs.forEach(function(blog) { %>
                                 <li>
                                     <h3><%= blog.name %></h3>
@@ -52,8 +53,8 @@
                                     <p>Subject: <%= blog.subject %></p>
                                     <p>Credits: <%= blog.credits %></p>
                                     <form action="blogs/add_class_to_course/<%= blog._id %>" method="POST" class="add-class-form">
-                                        <input type="" name="blog_id" value="<%= blog._id %>" class="blog_id">
-                                        <input type="" name="user_id" value="<%= user._id %>" class="user_id">
+                                        <input type="hidden" name="blog_id" value="<%= blog._id %>" class="blog_id">
+                                        <input type="hidden" name="user_id" value="<%= user._id %>" class="user_id">
                                         <button class="btn btn-lg btn-primary add-class-button" type="submit">Add class</button>
                                     </form>
                                 </li>
