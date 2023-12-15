@@ -29,10 +29,19 @@
                                 <% if(blog.user_courses && Array.isArray(blog.user_courses)) { %>
                                     <% blog.user_courses.forEach(function(user_course) { %>
                                         <li>
+                                                                                   
                                             <h3><%= blog.name %></h3>
                                             <p><%= blog.description %></p>
                                             <p>Subject: <%= blog.subject %></p>
                                             <p>Credits: <%= blog.credits %></p><br>
+                                            
+                                            <form class="remove-class-form">
+                                                <input type="hidden" name="blog_id" value="<%= blog._id %>" class="blog_id">
+                                                <input type="hidden" name="user_id" value="<%= user._id %>" class="user_id">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button class="btn btn-lg btn-danger delete-class-button" type="submit">Remove class from schedule</button>
+                                            </form>
+                                        </a>
                                         </li>
                                     <% }); %>
                                     
@@ -71,23 +80,21 @@
     </body>
 </html>
 <script>
-    // Get all the "Add Class" buttons
+    /**
+     * Attaches a click event listener to each "Add Class" button.
+     * When a button is clicked, it prevents the form from being submitted normally,
+     * retrieves the blog_id and user_id of the clicked blog,
+     * and sends a POST request to add the user to the course.
+     * 
+     * @param {Event} event - The click event object.
+     */
     var buttons = document.querySelectorAll('.add-class-button');
-
-    // Attach a click event listener to each button
     buttons.forEach(function(button) {
         button.addEventListener('click', function(event) {
-            // Prevent the form from being submitted normally
             event.preventDefault();
-
-            // Get the parent form of the clicked button
             var form = this.parentElement;
-
-            // Get the blog_id and user_id of the clicked blog
             var blog_id = form.querySelector('.blog_id').value;
             var user_id = form.querySelector('.user_id').value;
-
-            // Send the POST request
             fetch('/blogs/add_class_to_course/' + blog_id, {
                 method: 'POST',
                 headers: {
@@ -97,11 +104,39 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
+                console.log('NOT REACHING HERE:', data);
+                location.reload();
             })
             .catch((error) => {   
                 console.error('Error:', error);
             });
         });
     });
+
+     // Send the DELETE request
+     var removeButtons = document.querySelectorAll('.delete-class-button');
+removeButtons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        var form = this.parentElement;
+        var blog_id = form.querySelector('.blog_id').value;
+        var user_id = form.querySelector('.user_id').value;
+        fetch('/blogs/drop_class/' + blog_id, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user_id: user_id }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            location.reload();
+        })
+        .catch((error) => {   
+            console.error('Error:', error);
+        });
+    });
+});
 </script>
+    

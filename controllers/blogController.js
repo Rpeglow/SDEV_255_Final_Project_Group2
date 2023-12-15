@@ -98,6 +98,18 @@ const add_class_to_course = async (req, res) => {
     });
 }
 
+const drop_class = async (req, res) => {
+    let id = req.params.id.trim(); // Remove leading and trailing spaces
+    let user_id = req.body.user_id;
+    await Blog.findByIdAndUpdate(id, {$pull: {user_courses: new mongoose.Types.ObjectId(user_id)}}, {new: true})
+    .then((result) => {
+        res.redirect('/blogs');
+    })
+    .catch(err => {
+        console.log(err);
+    });
+}
+
 
 
 module.exports = {
@@ -108,5 +120,6 @@ module.exports = {
     blog_delete,
     blog_update,
     search_get,
-    add_class_to_course
+    add_class_to_course,
+    drop_class
 }
