@@ -3,24 +3,30 @@
     <body>
         <%- include('../partials/nav.ejs') %>
         <div class="blogs content">
-            <h2>Courses offered this semester</h2>
+            
             <% if(role === 'teacher') { %>
-                <p>Teacher</p>
                 <ul>
-                    <li><a href="/blogs/create"><button class="btn">Add to the Course Catalog. </button></a></li>
+                    <li><a href="/searchpage"><button class="btn">Search for class</button></a></li>
+                    
+                <ul>
+                <p>Weclome to the Class Creator.</p>
+                <ul>
+                    <li><h3><a href="/blogs/create">Add to the Course Catalog</a></li></h3>
                     <% if (blogs.length > 0) { %>
+                        <h2>Courses offered this semester</h2>
                         <% blogs.forEach(function(blog) { %>
                             <a class="single" href="/blogs/<%= blog._id %>">
-                                <h3>Course Name: <%= blog.name %></h3>
-                                <h4>Description: <%= blog.description %></h4>
-                                <h5>Subject: <%= blog.subject %></h5>
+                                <p>Course Name: <%= blog.name %></p>
+                                <p style="text-align: left;">Description: <%= blog.description %></p>
+                                <p>Subject: <%= blog.subject %></p>
+                                <p>Credits: <%= blog.credits %></p><br>
                             </a>
                         <% }) %>
                     <% } else { %>
                         <p>There are no classes to display...</p>
                     <% } %>
                 </ul>
-
+                
             <% } else if(role === 'student') { %>
                 <h1>Student</h1>
                 <h2>Your Schedule</h2>
@@ -39,7 +45,7 @@
                                                 <input type="hidden" name="blog_id" value="<%= blog._id %>" class="blog_id">
                                                 <input type="hidden" name="user_id" value="<%= user._id %>" class="user_id">
                                                 <!-- <input type="hidden" name="_method" value="DELETE"> -->
-                                                <button class="btn btn-lg btn-danger delete-class-button" type="submit">Remove class from schedule</button>
+                                                <button class="btn btn-lg btn-danger delete-class-button" type="submit">Remove class </button>
                                             </form>
                                         </a>
                                         </li>

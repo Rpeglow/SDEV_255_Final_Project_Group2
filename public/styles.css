@@ -5,12 +5,20 @@ body {
   background-color: rgb(204, 204, 204);
 }
 
-p, h2, h3, a, ul, h4 {
+p, h2, h3, a, ul, h4, li {
   margin: 0;
   padding: 0;
   text-decoration: none;
   color: #222;
+  list-style-type: none;
+  
 }
+/* ...existing code... */
+
+
+
+/* ...existing code... */
+
 
 .formcontent {
   text-align: center;
@@ -122,11 +130,11 @@ h3 {
   display: block;
   margin: 40px 0;
   padding-left: 30px;
-  border-left: 6px solid crimson;
+  border-left: 6px solid #006648;
 }
 
 .blogs a:hover h3 {
-  color: crimson;
+  color: #41AD49;
 }
 
 /* details styles */
@@ -425,4 +433,13 @@ margin-bottom: -19;
 .login-btn:hover {
   cursor: pointer;
   color: rgb(126, 206, 130);
+}
+a {
+  color: #006648; /* Change the color of the anchor text */
+  text-decoration: none; /* Remove the underline */
+}
+
+a:hover {
+  color: #47AD49; /* Change the color of the anchor text on hover */
+  text-decoration: underline; /* Add underline on hover */
 }
