@@ -18,8 +18,11 @@ const blogSchema = new Schema({
         type: Number,
         required: true,
         },
-    user_courses: 
-        [{type: String}],
+    user_courses: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        
+    }],
     },
      {timestamps: true});
 

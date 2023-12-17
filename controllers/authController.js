@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
-const Schedule = require('../models/schedule');
+
 
 // handle errors
 const handleErrors = (err) => {
